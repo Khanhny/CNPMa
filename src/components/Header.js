@@ -1,27 +1,24 @@
-export default function Header() {
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function Header({ setIsAuthenticated }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    setIsAuthenticated(false);
+    navigate("/auth");
+  };
+
   return (
-    <header className="bg-white shadow p-4 flex justify-between items-center">
-      <h1 className="text-xl font-semibold text-gray-700">
-        Intern Management System
-      </h1>
-      <div className="flex items-center gap-4">
-        <span className="text-gray-600">Hello, Admin</span>
-        <img
-          src="https://i.pravatar.cc/40"
-          alt="avatar"
-          className="rounded-full w-10 h-10"
-        />
-        {/* 🔹 Logout button */}
-        <button
-          onClick={() => {
-            localStorage.removeItem("isAuthenticated");
-            window.location.href = "/login";
-          }}
-          className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
-        >
-          Logout
-        </button>
-      </div>
+    <header className="flex justify-between items-center bg-white shadow p-4">
+      <h1 className="text-xl font-bold">Hệ thống Quản lý Thực tập</h1>
+      <button
+        onClick={handleLogout}
+        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+      >
+        Đăng xuất
+      </button>
     </header>
   );
 }

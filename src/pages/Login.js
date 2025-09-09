@@ -1,66 +1,70 @@
+// src/pages/Login.js
 import React, { useState } from "react";
-import "./login.css";
+import "./login.css"; // bạn copy CSS từ style.css vào file này
 
 export default function Login() {
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Sau này bạn thay bằng gọi API backend để check tài khoản
+    // sau khi xác thực thành công
     localStorage.setItem("isAuthenticated", "true");
     window.location.href = "/";
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Sau này thay bằng gọi API backend để lưu user mới
-    alert("Account created successfully! You can now login.");
-    setIsSignUp(false);
+    alert("Register thành công (chưa kết nối backend)");
+    setIsActive(false);
   };
 
   return (
-    <div className={`container ${isSignUp ? "active" : ""}`} id="container">
-      {/* Sign Up */}
+    <div className={`container ${isActive ? "active" : ""}`} id="container">
+      {/* Register form */}
       <div className="form-container sign-up">
         <form onSubmit={handleRegister}>
           <h1>Create Account</h1>
           <span>or use your email for registration</span>
-          <input type="text" placeholder="Username" required />
+          <input type="text" placeholder="Name" required />
           <input type="email" placeholder="Email" required />
-          <input type="tel" placeholder="Phone Number" required />
-          <input type="text" placeholder="Address" required />
           <input type="password" placeholder="Password" required />
-          <input type="password" placeholder="Confirm Password" required />
           <button type="submit">Sign Up</button>
         </form>
       </div>
 
-      {/* Sign In */}
+      {/* Login form */}
       <div className="form-container sign-in">
         <form onSubmit={handleLogin}>
           <h1>Sign In</h1>
-          <span>or use your account</span>
+          <span>or use your email password</span>
           <input type="email" placeholder="Email" required />
           <input type="password" placeholder="Password" required />
-          <a href="#">Forgot Your Password?</a>
           <button type="submit">Sign In</button>
         </form>
       </div>
 
-      {/* Toggle Panels */}
+      {/* Toggle panels */}
       <div className="toggle-container">
         <div className="toggle">
           <div className="toggle-panel toggle-left">
             <h1>Welcome Back!</h1>
-            <p>Enter your personal details to use all of site features</p>
-            <button className="hidden" onClick={() => setIsSignUp(false)}>
+            <p>Enter your personal details to use all site features</p>
+            <button
+              type="button"
+              className="hidden"
+              onClick={() => setIsActive(false)}
+            >
               Sign In
             </button>
           </div>
           <div className="toggle-panel toggle-right">
             <h1>Hello, Friend!</h1>
-            <p>Register with your personal details to use all of site features</p>
-            <button className="hidden" onClick={() => setIsSignUp(true)}>
+            <p>Register with your personal details to use all site features</p>
+            <button
+              type="button"
+              className="hidden"
+              onClick={() => setIsActive(true)}
+            >
               Sign Up
             </button>
           </div>
